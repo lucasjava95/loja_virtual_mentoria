@@ -51,6 +51,8 @@ public class Usuario implements UserDetails {
      joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuario",
      unique = false, foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)),
      
+     
+     
      inverseJoinColumns = @JoinColumn(name = "acesso_id", referencedColumnName = "id", table = "acesso",
      unique = false, foreignKey = @ForeignKey(name = "acesso_fk", value = ConstraintMode.CONSTRAINT)))
     private List<Acesso> acessos;
