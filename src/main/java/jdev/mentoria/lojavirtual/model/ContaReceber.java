@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -30,18 +31,24 @@ public class ContaReceber implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_receber")
 	private Long id;
-
+	
+	
+	@Column(nullable = false)
 	private String descricao;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private StatusContaReceber status;
 
 	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
 	private Date dtVencimento;
 
 	@Temporal(TemporalType.DATE)
 	private Date dtPagamento;
-
+	
+	
+	@Column(nullable = false)
 	private BigDecimal valorTotal;
 
 	private BigDecimal valorDesconto;

@@ -3,6 +3,7 @@ package jdev.mentoria.lojavirtual.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -30,18 +31,24 @@ public class ContaPagar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_pagar")
 	private Long id;
-
+	
+	
+	@Column(nullable = false)
 	private String descricao;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private StatusContaPagar status;
-
+    
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dtVencimento;
 
 	@Temporal(TemporalType.DATE)
 	private Date dtPagamento;
-
+	
+	
+    @Column(nullable = false)
 	private BigDecimal valorTotal;
 
 	private BigDecimal valorDesconto;

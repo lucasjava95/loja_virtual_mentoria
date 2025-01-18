@@ -26,31 +26,45 @@ public class Produto implements Serializable {
 	private Long id;
 	
 	
+	@Column(nullable = false)
 	private String tipoUnidade;
 	
+	
+	@Column(nullable = false) 
 	private String nome;
 	
 	
+	@Column(nullable = false)
 	private Boolean ativo = Boolean.TRUE;
 	
 	
-	@Column(columnDefinition = "text", length = 2000 ) /*definindo o tamanho, pois o padrão é 255 para String*/
+	
+	@Column(columnDefinition = "text", length = 2000, nullable = false ) /*definindo o tamanho, pois o padrão é 255 para String*/
 	private String descricao;
 	
 	
 	
 	/*utilizando Double (classe), pois utilizar double (tipo primitivo) o campo pode não ser criado*/
+	@Column(nullable = false)
 	private Double peso; 
 	
-	
+	@Column(nullable = false)
 	private Double largura;
 	
+	
+	@Column(nullable = false)
 	private Double altura;
 	
+	
+	@Column(nullable = false)
 	private Double profundidade;
 	
+	
+	@Column(nullable = false)
 	private BigDecimal valorVenda = BigDecimal.ZERO;
 	
+	
+	@Column(nullable = false)
 	private Integer qtdEstoque = 0;
 	
 	private Integer qtdAlertaEstoque = 0;
