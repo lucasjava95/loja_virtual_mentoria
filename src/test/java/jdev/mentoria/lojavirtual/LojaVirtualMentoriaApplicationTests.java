@@ -6,8 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import jdev.mentoria.lojavirtual.controller.AcessoController;
 import jdev.mentoria.lojavirtual.model.Acesso;
-import jdev.mentoria.lojavirtual.repository.AcessoRepository;
-import jdev.mentoria.lojavirtual.service.AcessoService;
 
 @SpringBootTest(classes = LojaVirtualMentoriaApplication.class) //especifica a classe que será testada
 class LojaVirtualMentoriaApplicationTests {
