@@ -24,7 +24,7 @@ class LojaVirtualMentoriaApplicationTests {
 		Acesso acesso = new Acesso();
 		
         
-        acesso.setDescricao("ROLE_SECRETARIO");
+        acesso.setDescricao("ROLE_USUARIO");
         
        // acessoService.save(acesso);
 
