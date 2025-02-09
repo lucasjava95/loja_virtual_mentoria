@@ -7,21 +7,26 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 
 
-
 @Configuration
-public class WebConfigSecurity  {
+@EnableWebSecurity
+public class WebConfigSecurity {
 	
-
+ 
 	@Bean
     public WebSecurityCustomizer webSecurityCustomizer() throws Exception{
     	
     	
     	
-    	 return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/salvarAcesso");
+    	 return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/salvarAcesso")
+    			 
+    			 .requestMatchers(HttpMethod.DELETE, "deleteAcesso");
+		
+		
     	
     	
     	
     }
+
 	
 	
 	
