@@ -19,7 +19,7 @@ public class WebConfigSecurity {
     	
     	 return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/salvarAcesso")
     			 
-    			 .requestMatchers(HttpMethod.DELETE, "deleteAcesso");
+    			 .requestMatchers(HttpMethod.DELETE, "/deleteAcesso");
 		
 		
     	
