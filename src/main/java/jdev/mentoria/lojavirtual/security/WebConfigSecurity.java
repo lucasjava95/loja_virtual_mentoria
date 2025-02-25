@@ -1,6 +1,5 @@
 package jdev.mentoria.lojavirtual.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,10 +19,8 @@ import jdev.mentoria.lojavirtual.service.ImplementacaoUserDetailsService;
 public class WebConfigSecurity {
 	
 	
-	@Autowired
-	private ImplementacaoUserDetailsService userDetailsService;
 	
- 
+
 	@Bean
     public WebSecurityCustomizer webSecurityCustomizer() throws Exception{
     	
