@@ -58,9 +58,7 @@ public class JWTTokenAutenticacaoService {
 	  /*seta para o corpo da resposta (mais usado para o Postman)*/
 	  response.getWriter().write("{\"Authorization\": \"" + token + "\"}");
 
-	  
-		
-		
+	  	
 	}
 	
 	
