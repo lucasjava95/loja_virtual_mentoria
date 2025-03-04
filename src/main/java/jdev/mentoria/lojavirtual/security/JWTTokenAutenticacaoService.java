@@ -1,5 +1,6 @@
 package jdev.mentoria.lojavirtual.security;
 
+import java.io.IOException;
 import java.util.Date;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jdev.mentoria.lojavirtual.ApplicationContextLoad;
@@ -72,9 +74,14 @@ public class JWTTokenAutenticacaoService {
 	
 	/*Faz a validacao do usuario/token a cada requisição que o usuario faz (salvar, consultar, deletar, etc) e, caso nao validado, retorna Null*/
 	
-	public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) {
+	public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String token = request.getHeader(HEADER_STRING);
+		
+		
+		
+		try {
+		
 		
 		if(token != null) {
 			
@@ -116,11 +123,22 @@ public class JWTTokenAutenticacaoService {
 		  }
 		  	
 			
+		}
+		
+		}catch(SignatureException e) {
 			
+			
+			response.getWriter().write("Token inválido");
+			
+			
+		
+		}finally {
+			
+			liberacaoCors(response);
 		
 		}
 		
-		liberacaoCors(response);
+		
 		return null;
 		
 		
