@@ -3,6 +3,7 @@ package jdev.mentoria.lojavirtual.security;
 import java.io.IOException;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -76,6 +77,33 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	
 	  
 	  } 
+	
+	
+	}
+	
+	
+	
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException failed) throws IOException, ServletException {
+		
+		
+        if(failed instanceof BadCredentialsException) {
+        	
+        	response.getWriter().write("Usuario e/ou senha invalidos");
+        	
+        	
+        }else {
+        	
+        	response.getWriter().write("Falha ao logar : " + failed.getMessage());
+        	
+        	
+        }
+		
+		
+		
+		//super.unsuccessfulAuthentication(request, response, failed);
+	
 	
 	
 	}
