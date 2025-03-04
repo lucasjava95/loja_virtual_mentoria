@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,11 +16,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 
+
 @Configuration
 @EnableWebSecurity
 public class WebConfigSecurity {
 	
-
+    @Autowired
+	AuthenticationConfiguration authenticationConfiguration;
 
 	/*
 	@Bean
@@ -40,7 +41,7 @@ public class WebConfigSecurity {
 	
 	
     @Bean
-	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
     
     	http.csrf(csrf -> csrf.disable())
@@ -54,8 +55,10 @@ public class WebConfigSecurity {
         .authenticated()
         
         		
-        ).formLogin((form) -> form
-                .loginPage("/login")
+        )
+               
+        .formLogin((form) -> form
+                .loginPage("/index")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login-error")
                 .permitAll()
@@ -71,7 +74,7 @@ public class WebConfigSecurity {
         
         http.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class)
         
-        .addFilterAfter(new JWTLoginFilter("/login", this.authenticationManager(null)), UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(new JWTLoginFilter("/login", authenticationManag()), UsernamePasswordAuthenticationFilter.class);
         
         
         return http.build();
@@ -93,8 +96,9 @@ public class WebConfigSecurity {
 	
 	
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+	public AuthenticationManager authenticationManag() throws Exception {
 		
+			
 		return authenticationConfiguration.getAuthenticationManager();
 
 		
