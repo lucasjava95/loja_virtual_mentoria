@@ -64,10 +64,7 @@ public class WebConfigSecurity {
                 .permitAll()
            ).logout( (logout) -> logout
                 .logoutSuccessUrl("/index")
-           ).exceptionHandling( (ex) -> ex
-                .accessDeniedPage("/negado")
-        
-        
+           
         
         );
         
