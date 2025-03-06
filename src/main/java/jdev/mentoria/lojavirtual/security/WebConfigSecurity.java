@@ -1,114 +1,77 @@
 package jdev.mentoria.lojavirtual.security;
 
+
+import javax.servlet.http.HttpSessionListener;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
+import jdev.mentoria.lojavirtual.service.ImplementacaoUserDetailsService;
 
 
 @Configuration
 @EnableWebSecurity
-public class WebConfigSecurity {
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+public class WebConfigSecurity extends WebSecurityConfigurerAdapter implements HttpSessionListener {
 	
-    @Autowired
-	AuthenticationConfiguration authenticationConfiguration;
-
-	/*
-	@Bean
-    public WebSecurityCustomizer webSecurityCustomizer() throws Exception{
-    	
-    	
-    	//URLs para se ignorar (não autenticar)
-    	 return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/salvarAcesso")
-    			 
-    			 .requestMatchers(HttpMethod.DELETE, "/deleteAcesso");
-	 }
-   */
-   
+	@Autowired
+	private ImplementacaoUserDetailsService implementacaoUserDetailsService;
 	
 	
-	
-	
-    @Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        
-    
-    	http.csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/").permitAll()
-        .requestMatchers("/index").permitAll()
-        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-        
-        
-        .anyRequest()
-        .authenticated()
-        
-        		
-        )
-               
-        .formLogin((form) -> form
-                .loginPage("/index")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login-error")
-                .permitAll()
-           ).logout( (logout) -> logout
-                .logoutSuccessUrl("/index")
-           
-        
-        );
-        
-        
-        http.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class)
-        
-        .addFilterBefore(new JWTLoginFilter("/login", authenticationManag()), UsernamePasswordAuthenticationFilter.class);
-        
-        
-        return http.build();
-
-   
-    
-    
-    }
-
-	
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 		
-		return new BCryptPasswordEncoder();
 		
+		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+		.disable().authorizeRequests().antMatchers("/").permitAll()
+		.antMatchers("/index").permitAll()
+		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+		
+		/* redireciona ou da um retorno para index quando desloga*/
+		.anyRequest().authenticated().and().logout().logoutSuccessUrl("/index")
+		
+		/*mapeia o logout do sistema*/
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		
+		/*Filtra as requisicoes para login de JWT*/
+		.and().addFilterAfter(new JWTLoginFilter("/login", authenticationManager()),
+				UsernamePasswordAuthenticationFilter.class)
+		
+		.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class);
 		
 	}
 	
 	
-	@Bean
-	public AuthenticationManager authenticationManag() throws Exception {
-		
-			
-		return authenticationConfiguration.getAuthenticationManager();
-
-		
-		
+	/*Irá consultar o user no banco com Spring Security*/
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(implementacaoUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 		
 	}
 	
 	
- 
+
+
+	/*Ignora alguas URL livre de autenticação*/
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		//web.ignoring().antMatchers(HttpMethod.GET, "/salvarAcesso", "/deleteAcesso")
+		//.antMatchers(HttpMethod.POST, "/salvarAcesso", "/deleteAcesso");
+		/*Ingnorando URL no momento para nao autenticar*/
+	}
+
 
 }
-	
-	
-	
-	
-	
