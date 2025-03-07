@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
@@ -133,7 +134,23 @@ public class JWTTokenAutenticacaoService {
 			
 			
 		
-		}finally {
+		}
+		
+           catch(ExpiredJwtException e) {
+			
+			
+			response.getWriter().write("Token expirado!");
+			
+			
+		
+		}
+		
+		
+		
+		
+		
+		
+		finally {
 			
 			liberacaoCors(response);
 		
