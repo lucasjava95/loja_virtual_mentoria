@@ -65,7 +65,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter implements H
 	
 
 
-	/*Ignora alguas URL livre de autenticação*/
+	/*Ignora algumas URLs, para não se autenticar e consequentemente nao se obter o erro 403*/
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		//web.ignoring().antMatchers(HttpMethod.GET, "/salvarAcesso", "/deleteAcesso")

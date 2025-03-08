@@ -17,12 +17,34 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import jdev.mentoria.lojavirtual.dto.ObjetoErroDTO;
 
-@RestControllerAdvice
-public class ControleExcecoes extends ResponseEntityExceptionHandler {
+   
 
+   @RestControllerAdvice
+   public class ControleExcecoes extends ResponseEntityExceptionHandler {
+	
+	
+	
+	@ExceptionHandler({ExceptionMentoriaJava.class})
+	public ResponseEntity<Object> handleExceptionInternalCustom(ExceptionMentoriaJava ex){
+	
+	ObjetoErroDTO objetoErroDTO = new ObjetoErroDTO();
+	
+	objetoErroDTO.setError(ex.getMessage());
+	
+	objetoErroDTO.setCode(HttpStatus.OK.toString());
+	
+	
+	return new ResponseEntity<Object>(objetoErroDTO, HttpStatus.OK);	
+		
+		
+		
+	}
+	
+	
+
+	
 	@Override
-	@ExceptionHandler({ Exception.class, RuntimeException.class, Throwable.class }) // Array com Excecoes que podem ser
-																					// capturadas
+	@ExceptionHandler({ Exception.class, RuntimeException.class, Throwable.class }) // Array com Excecoes que podem ser capturadas																			 
 	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
 

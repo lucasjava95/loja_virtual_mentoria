@@ -21,6 +21,9 @@ public class JwtApiAutenticacaoFilter extends GenericFilterBean {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
+	//deve-se envolver todo o codigo abaixo no try/catch, caso ao se fazer uma requisição, obtenha-se alguma Exceção que não seja capturada pela classe ControleExcecoes
+	  try {	
+		
 		
 	 /*Estabelece a autenticacao do user*/
 		
@@ -38,6 +41,15 @@ public class JwtApiAutenticacaoFilter extends GenericFilterBean {
 	  chain.doFilter(request, response); /*continua o processo/requisicao, chamando a API ou bloqueando*/
 	  
       	
+	  }catch (Exception e) {
+		
+		  e.printStackTrace();
+		  
+		  response.getWriter().write("Erro inesperado. Contate a equipe de desenvolvimento \n " + e.getMessage());
+       	
+	  
+	  
+	  }
 		
 	
 	
