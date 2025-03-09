@@ -314,7 +314,7 @@ class LojaVirtualMentoriaApplicationTests extends TestCase {    //TestCase para 
         // acessoService.save(acesso);
         
         
-      acesso =   acessoController.salvarAcesso(acesso).getBody(); 
+      acesso =  acessoController.salvarAcesso(acesso).getBody(); 
       
       
       assertEquals(true, acesso.getId() > 0);  /*Metodo do TestCase, que espera um true para a condicao: acesso.getId() >  0 */

@@ -32,9 +32,24 @@ public class AcessoController {
 	
 	@ResponseBody /*Para se poder dar um retorno da API*/
 	@PostMapping(value = "/salvarAcesso")       
-	public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) { /*@RequestBody recebe JSON e converte para Objeto*/
+	public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) throws ExceptionMentoriaJava { /*@RequestBody recebe JSON e converte para Objeto*/
 		
+		if(acesso.getId() == null) {
 		
+	    List<Acesso> acessos = acessoRepository.buscarAcessoDesc(acesso.getDescricao().toUpperCase());
+	    
+	    
+	    if(!acessos.isEmpty()) {
+	    	
+	    	
+	    	throw new ExceptionMentoriaJava("Já existe um acesso com a descrição " + acesso.getDescricao());
+	    	
+	    	
+	    }
+	    
+
+		}
+	    
 		Acesso acessoSalvo = acessoService.save(acesso); 
 		
 		
@@ -105,7 +120,7 @@ public class AcessoController {
 	public ResponseEntity<List<Acesso>> buscarPorDesc(@PathVariable("desc") String desc) { 
 		
 		
-	    List<Acesso> acessos = acessoRepository.buscarAcessoDesc(desc); 
+	    List<Acesso> acessos = acessoRepository.buscarAcessoDesc(desc.toUpperCase()); 
 		
 		
 		return new ResponseEntity<List<Acesso>>(acessos, HttpStatus.OK);
