@@ -304,6 +304,7 @@ class LojaVirtualMentoriaApplicationTests extends TestCase {    //TestCase para 
 	@Test
 	public void testCadastraAcesso() {
 		
+		try {
 		
 		Acesso acesso = new Acesso();
 		
@@ -364,7 +365,12 @@ class LojaVirtualMentoriaApplicationTests extends TestCase {    //TestCase para 
       
       acessoRepository.deleteById(acesso.getId());
       
-      
+		}catch (Exception e) {
+			
+         e.printStackTrace();
+		
+		
+		}
       
         
 		

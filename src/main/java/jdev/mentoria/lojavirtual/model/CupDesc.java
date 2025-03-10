@@ -5,10 +5,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,8 +28,7 @@ public class CupDesc implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cup_desc")
 	private Long id;
-	
-	
+
 	@Column(nullable = false)
 	private String codDesc;
 
@@ -36,72 +39,58 @@ public class CupDesc implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date dataValidadeCupom;
-	
-	
-	
+
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
 
 	public Long getId() {
 		return id;
 	}
-	
-	
 
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
-	
 
 	public String getCodDesc() {
 		return codDesc;
 	}
-	
-	
 
 	public void setCodDesc(String codDesc) {
 		this.codDesc = codDesc;
 	}
-	
-	
 
 	public BigDecimal getValorRealDesc() {
 		return valorRealDesc;
 	}
-	
-	
 
 	public void setValorRealDesc(BigDecimal valorRealDesc) {
 		this.valorRealDesc = valorRealDesc;
 	}
-	
-	
 
 	public BigDecimal getValorPorcentDesc() {
 		return valorPorcentDesc;
 	}
-	
-	
 
 	public void setValorPorcentDesc(BigDecimal valorPorcentDesc) {
 		this.valorPorcentDesc = valorPorcentDesc;
 	}
-	
-	
 
 	public Date getDataValidadeCupom() {
 		return dataValidadeCupom;
 	}
-	
-	
-	
 
 	public void setDataValidadeCupom(Date dataValidadeCupom) {
 		this.dataValidadeCupom = dataValidadeCupom;
 	}
-
-
-	
 
 	@Override
 	public int hashCode() {
@@ -110,8 +99,6 @@ public class CupDesc implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -129,11 +116,5 @@ public class CupDesc implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
 
 }

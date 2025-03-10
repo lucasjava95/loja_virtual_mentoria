@@ -31,24 +31,22 @@ public class ContaPagar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_pagar")
 	private Long id;
-	
-	
+
 	@Column(nullable = false)
 	private String descricao;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private StatusContaPagar status;
-    
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dtVencimento;
 
 	@Temporal(TemporalType.DATE)
 	private Date dtPagamento;
-	
-	
-    @Column(nullable = false)
+
+	@Column(nullable = false)
 	private BigDecimal valorTotal;
 
 	private BigDecimal valorDesconto;
@@ -56,16 +54,25 @@ public class ContaPagar {
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
-	
-	
-	
 
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_forn_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_forn_fk"))
 	private Pessoa pessoaFornecedor;
 
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
 	
 	
+
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -129,8 +136,6 @@ public class ContaPagar {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
-	
-	
 
 	public Pessoa getPessoaFornecedor() {
 		return pessoaFornecedor;
@@ -139,8 +144,6 @@ public class ContaPagar {
 	public void setPessoaFornecedor(Pessoa pessoaFornecedor) {
 		this.pessoaFornecedor = pessoaFornecedor;
 	}
-	
-	
 
 	@Override
 	public int hashCode() {
