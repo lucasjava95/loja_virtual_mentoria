@@ -31,7 +31,7 @@ public class AcessoController {
 	
 	
 	@ResponseBody /*Para se poder dar um retorno da API*/
-	@PostMapping(value = "/salvarAcesso")       
+	@PostMapping(value = "**/salvarAcesso")       
 	public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) throws ExceptionMentoriaJava { /*@RequestBody recebe JSON e converte para Objeto*/
 		
 		if(acesso.getId() == null) {
@@ -61,7 +61,7 @@ public class AcessoController {
 	
 	
 	@ResponseBody /*Para se poder dar um retorno da API*/
-	@PostMapping(value = "/deleteAcesso")       
+	@PostMapping(value = "**/deleteAcesso")       
 	public ResponseEntity<?> deleteAcesso(@RequestBody Acesso acesso) { /*@RequestBody recebe JSON e converte para Objeto*/
 		
 		
@@ -75,7 +75,7 @@ public class AcessoController {
 	
 	//@Secured({"ROLE_ADMIN"})  Somente ADMIN pode acessar esse end-point
 	@ResponseBody
-	@DeleteMapping(value = "/deleteAcessoPorId/{id}")       
+	@DeleteMapping(value = "**/deleteAcessoPorId/{id}")       
 	public ResponseEntity<?> deleteAcessoId(@PathVariable("id") Long id) { 
 		
 		
@@ -89,7 +89,7 @@ public class AcessoController {
 	
 	
 	@ResponseBody
-	@GetMapping(value = "/obterAcesso/{id}")       
+	@GetMapping(value = "**/obterAcesso/{id}")       
 	public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) throws ExceptionMentoriaJava { 
 		
 		
@@ -116,7 +116,7 @@ public class AcessoController {
 	
 	
 	@ResponseBody
-	@GetMapping(value = "/buscarPorDesc/{desc}")       
+	@GetMapping(value = "**/buscarPorDesc/{desc}")       
 	public ResponseEntity<List<Acesso>> buscarPorDesc(@PathVariable("desc") String desc) { 
 		
 		
