@@ -46,7 +46,7 @@ public class PessoaUserService {
 			
 			if(constraint != null) {
 				
-			jdbcTemplate.execute("begin; alter table usuarios_acesso drop constraint" + constraint + ";commit;");
+			jdbcTemplate.execute("begin; alter table usuarios_acesso drop constraint " + constraint +" ;commit;");
 				
 				
 				

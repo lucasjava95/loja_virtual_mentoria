@@ -12,7 +12,7 @@ import jdev.mentoria.lojavirtual.model.PessoaJuridica;
 public interface PessoaRepository extends JpaRepository<PessoaJuridica, Long> {
 	
 	
-	@Query("select pj from PessoaJuridica pj where pj.cnpj = ?1")
+	@Query("select pj from PessoaJuridica pj where pj.cnpj =?1")
 	public PessoaJuridica existeCnpjCadastrado(String cnpj);
 	
 	
