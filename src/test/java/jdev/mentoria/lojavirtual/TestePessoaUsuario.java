@@ -1,5 +1,7 @@
 package jdev.mentoria.lojavirtual;
 
+import java.util.Calendar;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,19 +39,19 @@ public class TestePessoaUsuario extends TestCase {
 	   
 	   PessoaJuridica pessoaJuridica = new PessoaJuridica();
 	   
-	   pessoaJuridica.setCnpj("204.994.0001/23");
+	   pessoaJuridica.setCnpj(""+ Calendar.getInstance().getTimeInMillis());
 	   
-	   pessoaJuridica.setInscricEstadual("929-223-333/88");
+	   pessoaJuridica.setInscricEstadual("929-223-333/89");
 	   
-	   pessoaJuridica.setNomeFantasia("Jdev Treinamentos");
+	   pessoaJuridica.setNomeFantasia("Vitarela");
 	   
-	   pessoaJuridica.setRazaoSocial("Jdev Treinamentos");
+	   pessoaJuridica.setRazaoSocial("Vitarela Alimentos Ltda");
 	   
-	   pessoaJuridica.setNome("Jdev Treinamentos");
+	   pessoaJuridica.setNome("Vitarela Alimentos");
 	   
-	   pessoaJuridica.setEmail("contato@jdevtreinamentos.com.br");
+	   pessoaJuridica.setEmail("contato@vitarela.com.br");
 	   
-	   pessoaJuridica.setTelefone("(45)98838-2344");
+	   pessoaJuridica.setTelefone("(45)98838-1342");
 	   
        pessoaController.salvarPj(pessoaJuridica);	   
 	   

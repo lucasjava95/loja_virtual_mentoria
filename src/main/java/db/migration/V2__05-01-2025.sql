@@ -16,5 +16,5 @@ select constraint_name from information_schema.constraint_column_usage
  
  
  
- --alter table usuarios_acesso drop constraint "uk8bak9jswon2id2jbunuqlfl9e"; 
+ alter table usuarios_acesso drop constraint "uk8bak9jswon2id2jbunuqlfl9e"; 
  
