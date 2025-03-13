@@ -18,15 +18,7 @@ import junit.framework.TestCase;
 @SpringBootTest(classes = LojaVirtualMentoriaApplication.class)
 public class TestePessoaUsuario extends TestCase {
 
-
-   @Autowired
-   private PessoaUserService pessoaUserService;
-   
-   
-   
-   @Autowired
-   private PessoaRepository pessoaRepository;
-   
+ 
    
    @Autowired
    private PessoaController pessoaController;

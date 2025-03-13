@@ -33,7 +33,21 @@ public class PessoaUserService {
 	public PessoaJuridica salvarPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		
 		
+		//pessoaJuridica = pessoaRepository.save(pessoaJuridica);
+		
+		
+		for(int i=0; i < pessoaJuridica.getEnderecos().size(); i++) {
+			
+			pessoaJuridica.getEnderecos().get(i).setPessoa(pessoaJuridica);
+			
+			pessoaJuridica.getEnderecos().get(i).setEmpresa(pessoaJuridica);	
+			
+		}
+		
+		
 		pessoaJuridica = pessoaRepository.save(pessoaJuridica);
+		
+		
 		
 		
 		Usuario usuarioPj = usuarioRepository.findUserByPessoa(pessoaJuridica.getId(), pessoaJuridica.getEmail());
@@ -74,6 +88,11 @@ public class PessoaUserService {
 			
 			
 			usuarioRepository.insereAcessoUserPj(usuarioPj.getId());
+			
+			
+			/*Fazer envio de e-mail do login e senha do usuario*/
+			
+			
 			
 			
 			
