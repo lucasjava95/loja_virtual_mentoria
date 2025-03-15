@@ -52,7 +52,8 @@ public class Endereco implements Serializable {
 	private String cidade;
 	
 	
-    @JsonIgnore 
+    @JsonIgnore //Para evitar o Loop ao se salvar uma PJ, que retorna um JSON da Pessoa e, dentro da pessoa, retorna a lista de Enderecos e dentro de cada
+                //Endereco retorna a Pessoa e, dentro de cada Pessoa, retorna a lista de Enderecos novamente e por ai vai (com.fasterxml.databind.Serializaer)
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;

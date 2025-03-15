@@ -73,7 +73,7 @@
 
 
 
-
+       <!--Dependencia abaixo para se poder utilizar o ObjectMapper-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -83,7 +83,7 @@
 
 
 
-		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+		<!--dependencia abaixo gera a tabela flyway_schema_history no BD -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
@@ -111,6 +111,21 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.7.0</version>
+		</dependency>
+
+
+     <!--Dependencia abaixo para envio de e-mail-->
+
+		<dependency>
+
+			<groupId>com.sun.mail</groupId>
+
+			<artifactId>javax.mail</artifactId>
+
+
+			<version>1.6.2</version>
+
+
 		</dependency>
 
 
