@@ -1,5 +1,7 @@
 package jdev.mentoria.lojavirtual.service;
 
+import java.util.Properties;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,10 @@ public class ServiceSendEmail {
     @Async
     public void enviarEmailHtml(String assunto, String mensagem, String emailDestino) {
     	
+    	
+    	Properties properties = new Properties();
+    	
+    	properties.put(emailDestino, properties);
     	
     	
     	
