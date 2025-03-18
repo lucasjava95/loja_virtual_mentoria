@@ -29,6 +29,11 @@ public class PessoaUserService {
 	
 	
 	
+	@Autowired
+	private ServiceSendEmail serviceSendEmail;
+	
+	
+	
 	
 	public PessoaJuridica salvarPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		
@@ -90,14 +95,33 @@ public class PessoaUserService {
 			usuarioRepository.insereAcessoUserPj(usuarioPj.getId());
 			
 			
+			StringBuilder mensagemHtlm = new StringBuilder();
+			
+			mensagemHtlm.append("<b>Segue abaixo, seus dados de acesso da Loja Virtual: </b> <br/> <br/>");
+			
+			mensagemHtlm.append("<b> Login: </b> " + pessoaJuridica.getEmail() + "<br/> <br/>");
+			
+			mensagemHtlm.append("<b> Senha: </b> " + senha  + "<br/> <br/>");
+			
+			mensagemHtlm.append("<b> Obrigado! </b>");
+			
+			
 			/*Fazer envio de e-mail do login e senha do usuario*/
 			
 			
+			try {
+			
+			serviceSendEmail.enviarEmailHtml("Acesso gerado para loja Virtual", mensagemHtlm.toString(), pessoaJuridica.getEmail());
 			
 			
-			
-			
-			
+			}catch(Exception e) {
+				
+				
+				e.printStackTrace();
+				
+				
+			}
+				
 			
 		}
 		
