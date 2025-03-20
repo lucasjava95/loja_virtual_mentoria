@@ -10,12 +10,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableAsync //para processos pesados/demorados como envio de e-mail ficarem rodando por trás dos panos e, na hora de ser chamado, não travar o sistema
+@EnableScheduling //para rodar tarefas automatizadas, por exemplo: um envio de e-mail uma vez por dia para users com senhas no BD há mais de 90 dias
 @EntityScan(basePackages = "jdev.mentoria.lojavirtual.model")
 @ComponentScan(basePackages = {"jdev.*"})
 @EnableJpaRepositories(basePackages = {"jdev.mentoria.lojavirtual.repository"})
