@@ -80,7 +80,9 @@ public class ServiceSendEmail {
     	
     	message.setSubject(assunto);
     	
-    	message.setText(mensagem);
+    	message.setContent(mensagem, "text/html; charset=UTF-8");
+    	
+    	//message.setText(mensagem);
     	
     	
     	Transport.send(message);  
