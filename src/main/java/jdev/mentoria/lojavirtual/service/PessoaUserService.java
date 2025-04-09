@@ -98,9 +98,9 @@ public class PessoaUserService {
 			usuarioPj = usuarioRepository.save(usuarioPj);
 			
 			
-			usuarioRepository.insereAcessoUserPj(usuarioPj.getId());
+			usuarioRepository.insereAcessoUser(usuarioPj.getId());
 			
-			usuarioRepository.insereAcessoUserPj(usuarioPj.getId(), "ROLE_CAIXA");
+			usuarioRepository.insereAcessoUserPj(usuarioPj.getId(), "ROLE_ADMIN");
 			
 			
 			StringBuilder mensagemHtlm = new StringBuilder();
@@ -199,9 +199,8 @@ public class PessoaUserService {
 					usuarioPj = usuarioRepository.save(usuarioPj);
 					
 					
-					usuarioRepository.insereAcessoUserPj(usuarioPj.getId());
+					usuarioRepository.insereAcessoUser(usuarioPj.getId());
 					
-					usuarioRepository.insereAcessoUserPj(usuarioPj.getId(), "ROLE_CAIXA");
 					
 					
 					StringBuilder mensagemHtlm = new StringBuilder();
