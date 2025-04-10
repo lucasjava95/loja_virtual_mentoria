@@ -152,7 +152,7 @@ public class PessoaUserService {
 					
 					pessoaFisica.getEnderecos().get(i).setPessoa(pessoaFisica);
 					
-					pessoaFisica.getEnderecos().get(i).setEmpresa(pessoaFisica);	
+				//	pessoaFisica.getEnderecos().get(i).setEmpresa(pessoaFisica);	
 					
 				}
 				

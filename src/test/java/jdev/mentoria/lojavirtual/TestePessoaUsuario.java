@@ -12,6 +12,7 @@ import jdev.mentoria.lojavirtual.enums.TipoEndereco;
 import jdev.mentoria.lojavirtual.model.Endereco;
 import jdev.mentoria.lojavirtual.model.PessoaFisica;
 import jdev.mentoria.lojavirtual.model.PessoaJuridica;
+import jdev.mentoria.lojavirtual.repository.PessoaRepository;
 import junit.framework.TestCase;
 
 @Profile("test")
@@ -22,6 +23,10 @@ public class TestePessoaUsuario extends TestCase {
    
    @Autowired
    private PessoaController pessoaController;
+   
+   
+   @Autowired
+   private PessoaRepository pessoaRepository;
    
    
    
@@ -127,29 +132,34 @@ public class TestePessoaUsuario extends TestCase {
    public void testeCadPessoaFisica() throws ExceptionMentoriaJava {
 	   
 	   
+	    PessoaJuridica pessoaJuridica =  pessoaRepository.existeCnpjCadastrado("114.113.312/21");
+	   
+	   
+	   
 	   PessoaFisica pessoaFisica = new PessoaFisica();
 	   
-	   pessoaFisica.setCpf("401.130.860-91");
+	   pessoaFisica.setCpf("750.413.280-21");
 	   
 	   
-	   pessoaFisica.setNome("Alex Fernando");
+	   pessoaFisica.setNome("Julia Campos");
 	   
-	   pessoaFisica.setEmail("alex.treinamentos@gmail.com");
+	   pessoaFisica.setEmail("julia.treinamentos@gmail.com");
 	   
-	   pessoaFisica.setTelefone("(44)98838-2122");
+	   pessoaFisica.setTelefone("(41)98838-2122");
+	   
+	   pessoaFisica.setEmpresa(pessoaJuridica);
+	   
 	   
 	   
 	   Endereco endereco1 = new Endereco();
 	   
-	   endereco1.setBairro("Jardim Dias");
+	   endereco1.setBairro("Jardim Dias 2");
 	   
-	   endereco1.setCep("60865-290");
+	   endereco1.setCep("60822-290");
 	   
-	   endereco1.setComplemento("casa verde");
-	   
-	   endereco1.setEmpresa(pessoaFisica);
-	   
-	   endereco1.setNumero("344");
+	   endereco1.setComplemento("casa amarela");
+	   	   
+	   endereco1.setNumero("334");
 	   
 	   endereco1.setPessoa(pessoaFisica);
 	   
@@ -161,7 +171,7 @@ public class TestePessoaUsuario extends TestCase {
 	   
 	   endereco1.setCidade("Curitiba");
 	   
-	   
+	   endereco1.setEmpresa(pessoaJuridica);
 	   
 	   
 	   
@@ -172,10 +182,8 @@ public class TestePessoaUsuario extends TestCase {
      endereco2.setCep("60865-290");
 	   
      endereco2.setComplemento("casa azul");
-	   
-     endereco2.setEmpresa(pessoaFisica);
-	   
-     endereco2.setNumero("126");
+	   	   
+     endereco2.setNumero("116");
 	   
      endereco2.setPessoa(pessoaFisica);
 	   
@@ -186,6 +194,8 @@ public class TestePessoaUsuario extends TestCase {
      endereco2.setUf("PR");
      
      endereco2.setCidade("Maringá");
+     
+     endereco2.setEmpresa(pessoaJuridica);
      
      
      pessoaFisica.getEnderecos().add(endereco1);
