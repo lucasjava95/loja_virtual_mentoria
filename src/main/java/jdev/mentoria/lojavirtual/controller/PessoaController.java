@@ -34,6 +34,16 @@ public class PessoaController {
     @PostMapping(value = "**/salvarPj")
 	public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody PessoaJuridica pessoaJuridica) throws ExceptionMentoriaJava{
     	
+    	
+     /*	if(pessoaJuridica.getNome() == null || pessoaJuridica.getNome().trim().isEmpty()) {
+    		
+    		throw new ExceptionMentoriaJava("Informe o campo de nome");
+    		
+    		
+    	}*/
+    	
+    	
+    	
          if(pessoaJuridica == null) {
         	 
         	 

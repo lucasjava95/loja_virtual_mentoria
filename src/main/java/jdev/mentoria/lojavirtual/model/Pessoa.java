@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) /* anotação do Spring para abstracao */
@@ -32,6 +33,7 @@ public abstract class Pessoa implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
+	@NotBlank(message = "nome não pode ser vazio")
 	private String nome;
 
 	@Column(nullable = false)

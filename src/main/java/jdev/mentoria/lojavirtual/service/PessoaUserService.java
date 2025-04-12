@@ -183,7 +183,7 @@ public class PessoaUserService {
 					
 					usuarioPj.setDataAtualSenha(Calendar.getInstance().getTime());
 					
-					usuarioPj.setEmpresa(pessoaFisica);
+					usuarioPj.setEmpresa(pessoaFisica.getEmpresa());
 					
 					usuarioPj.setPessoa(pessoaFisica);
 					
