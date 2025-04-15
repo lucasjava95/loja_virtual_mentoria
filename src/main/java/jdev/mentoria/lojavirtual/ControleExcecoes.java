@@ -63,10 +63,10 @@ import jdev.mentoria.lojavirtual.dto.ObjetoErroDTO;
 
 			}
 
-		}if(ex instanceof HttpMessageNotReadableException) {
+		}else if(ex instanceof HttpMessageNotReadableException) {
 			
 			
-			msg = "Não está sendo enviado dados para o BODY";
+			msg = "Não está sendo enviado dados para o BODY da requisição";
 			
 		}
 		

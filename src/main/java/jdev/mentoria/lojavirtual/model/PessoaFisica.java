@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 @Entity
 @Table(name = "pessoa_fisica")
 @PrimaryKeyJoinColumn(name = "id")
@@ -17,6 +19,7 @@ public class PessoaFisica extends Pessoa {
 	private static final long serialVersionUID = 1L;
 
 	@Column(nullable = false)
+	@CPF(message = "CPF inválido. Insira CPF no formato xxx.xxx.xxx-xx")
 	private String cpf;
 
 	@Temporal(TemporalType.DATE) /* pega só a data, sem a hora. */

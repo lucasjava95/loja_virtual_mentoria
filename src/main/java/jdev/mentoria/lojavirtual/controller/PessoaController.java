@@ -1,5 +1,7 @@
 package jdev.mentoria.lojavirtual.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +33,8 @@ public class PessoaController {
 	
 	
     @ResponseBody
-    @PostMapping(value = "**/salvarPj")
-	public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody PessoaJuridica pessoaJuridica) throws ExceptionMentoriaJava{
+    @PostMapping(value = "**/salvarPj")                         //@Valid valida todas as anotações do javax.validation
+	public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws ExceptionMentoriaJava{
     	
     	
      /*	if(pessoaJuridica.getNome() == null || pessoaJuridica.getNome().trim().isEmpty()) {

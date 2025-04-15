@@ -19,7 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) /* anotação do Spring para abstracao */
@@ -33,10 +36,13 @@ public abstract class Pessoa implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	@NotBlank(message = "nome não pode ser vazio")
+	@NotBlank(message = "nome deve ser informado")
+	@NotNull(message = "nome deve ser informado")
+	@Size(min = 4, message = "Nome deve ter pelo menos 4 caracteres")
 	private String nome;
 
 	@Column(nullable = false)
+	@Email
 	private String email;
 
 	@Column(nullable = false)
