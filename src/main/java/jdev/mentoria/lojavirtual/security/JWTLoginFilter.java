@@ -24,7 +24,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	/*Confgurando o gerenciado de autenticacao*/
 	public JWTLoginFilter(String url, AuthenticationManager authenticationManager) {
 	
-		/*Ibriga a autenticat a url*/
+		/*Obriga a autenticar a url*/
 		super(new AntPathRequestMatcher(url));
 		
 		/*Gerenciador de autenticao*/
@@ -33,7 +33,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	}
 
 	
-	/*Retorna o usuário ao processr a autenticacao*/
+	/*Retorna o usuário ao processar a autenticacao*/
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
