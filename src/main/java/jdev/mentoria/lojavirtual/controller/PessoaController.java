@@ -24,6 +24,7 @@ import jdev.mentoria.lojavirtual.repository.EnderecoRepository;
 import jdev.mentoria.lojavirtual.repository.PesssoaFisicaRepository;
 import jdev.mentoria.lojavirtual.repository.PesssoaRepository;
 import jdev.mentoria.lojavirtual.service.PessoaUserService;
+import jdev.mentoria.lojavirtual.service.ServiceContagemAcessoApi;
 import jdev.mentoria.lojavirtual.util.ValidaCNPJ;
 import jdev.mentoria.lojavirtual.util.ValidaCPF;
 
@@ -43,7 +44,9 @@ public class PessoaController {
 	private PesssoaFisicaRepository pesssoaFisicaRepository;
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate; 
+	private ServiceContagemAcessoApi serviceContagemAcessoApi;
+	
+	
 	
 	
 	@ResponseBody
@@ -52,7 +55,7 @@ public class PessoaController {
 		
 		List<PessoaFisica> fisicas = pesssoaFisicaRepository.pesquisaPorNomePF(nome.trim().toUpperCase());
 		
-		//jdbcTemplate.execute("begin; update tabela_acesso_end_potin set qtd_acesso_end_point = qtd_acesso_end_point + 1 where nome_end_point = 'END-POINT-NOME-PESSOA-FISICA'; commit;");
+		serviceContagemAcessoApi.atualizaAcessoEndPoint();
 		
 		return new ResponseEntity<List<PessoaFisica>>(fisicas, HttpStatus.OK);
 	}
