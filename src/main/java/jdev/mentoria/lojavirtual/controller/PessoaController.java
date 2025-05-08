@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jdev.mentoria.lojavirtual.ExceptionMentoriaJava;
+import jdev.mentoria.lojavirtual.enums.TipoPessoa;
 import jdev.mentoria.lojavirtual.model.Endereco;
 import jdev.mentoria.lojavirtual.model.PessoaFisica;
 import jdev.mentoria.lojavirtual.model.PessoaJuridica;
 import jdev.mentoria.lojavirtual.model.dto.CepDTO;
+import jdev.mentoria.lojavirtual.model.dto.ConsultaCnpjDto;
 import jdev.mentoria.lojavirtual.repository.EnderecoRepository;
 import jdev.mentoria.lojavirtual.repository.PesssoaFisicaRepository;
 import jdev.mentoria.lojavirtual.repository.PesssoaRepository;
@@ -101,6 +103,18 @@ public class PessoaController {
 		
 	}
 	
+	@ResponseBody
+	@GetMapping(value = "**/consultaCnpjReceitaWs/{cnpj}")
+	public ResponseEntity<ConsultaCnpjDto> consultaCnpjReceitaWs(@PathVariable("cnpj") String cnpj){
+		
+	  return new ResponseEntity<ConsultaCnpjDto>(pessoaUserService.consultaCnpjReceitaWS(cnpj), HttpStatus.OK);
+		
+	
+	}
+	
+	
+	
+	
 	/*end-point é microsservicos é um API*/
 	@ResponseBody
 	@PostMapping(value = "**/salvarPj")
@@ -114,6 +128,16 @@ public class PessoaController {
 		if (pessoaJuridica == null) {
 			throw new ExceptionMentoriaJava("Pessoa juridica nao pode ser NULL");
 		}
+		
+		
+		if(pessoaJuridica.getTipoPessoa() == null) {
+			
+			throw new ExceptionMentoriaJava("Informe o tipo: Jurídica ou Fornecedor da Loja");
+			
+			
+		}
+		
+		
 		
 		if (pessoaJuridica.getId() == null && pesssoaRepository.existeCnpjCadastrado(pessoaJuridica.getCnpj()) != null) {
 			throw new ExceptionMentoriaJava("Já existe CNPJ cadastrado com o número: " + pessoaJuridica.getCnpj());
@@ -178,6 +202,16 @@ public class PessoaController {
 		if (pessoaFisica == null) {
 			throw new ExceptionMentoriaJava("Pessoa fisica não pode ser NULL");
 		}
+		
+		
+		if(pessoaFisica.getTipoPessoa() == null) {
+			
+			pessoaFisica.setTipoPessoa(TipoPessoa.FISICA.name()); //seta a descricao FISICA para o tipoPessoa
+			
+			
+		}
+		
+		
 		
 		if (pessoaFisica.getId() == null && pesssoaRepository.existeCpfCadastrado(pessoaFisica.getCpf()) != null) {
 			throw new ExceptionMentoriaJava("Já existe CPF cadastrado com o número: " + pessoaFisica.getCpf());
