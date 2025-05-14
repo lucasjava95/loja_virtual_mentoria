@@ -32,7 +32,7 @@ public class CategoriaProdutoController {
 		
 		categoriaProdutoDto.setId(categoriaSalva.getId());
 		
-		categoriaProdutoDto.setEmpresa(categoriaSalva.getEmpresa().getId().toString());
+		categoriaProdutoDto.setEmpresa(categoriaSalva.getEmpresa().getId());
 		
 		categoriaProdutoDto.setNomeDesc(categoriaSalva.getNomeDesc());
 		

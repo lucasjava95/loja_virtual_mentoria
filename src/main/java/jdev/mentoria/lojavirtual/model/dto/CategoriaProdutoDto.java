@@ -3,7 +3,7 @@ package jdev.mentoria.lojavirtual.model.dto;
 import java.io.Serializable;
 
 /*A presente classe teve de ser criada pois ao se salvar uma CategoriaProduto no BD e, ao se informar o atributo empresa, obtinha-se no response o erro 
- InvalidDefinitionException: Cannot construct instance of `jdev.mentoria.lojavirtual.model.Pessoa` (no Creators, like default constructor, exist): 
+ InvalidDefinitionException: Cannot construct instance of jdev.mentoria.lojavirtual.model.Pessoa` (no Creators, like default constructor, exist): 
  abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information,
  pois o atributo empresa é do tipo Pessoa e, Pessoa, é uma classe abstrata*/
  
@@ -19,7 +19,7 @@ public class CategoriaProdutoDto implements Serializable {
 	
 	private String nomeDesc;
 	
-	private String empresa;
+	private Long empresa;
 	
 	
 
@@ -39,11 +39,11 @@ public class CategoriaProdutoDto implements Serializable {
 		this.nomeDesc = nomeDesc;
 	}
 
-	public String getEmpresa() {
+	public Long getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(String empresa) {
+	public void setEmpresa(Long empresa) {
 		this.empresa = empresa;
 	}
 	
