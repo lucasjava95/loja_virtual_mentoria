@@ -11,7 +11,7 @@ import jdev.mentoria.lojavirtual.model.CategoriaProduto;
 public interface CategoriaProdutoRepository extends JpaRepository<CategoriaProduto, Long> {
 	
 	
-   @Query(nativeQuery = true, value = "select count(1) > 0 from categoria_produto where nome_desc = ?1")
+   @Query(nativeQuery = true, value = "select count(1) > 0 from categoria_produto where upper(nome_desc) = ?1")
    public boolean existeCategoria(String nomeCategoria);
 	
 	
