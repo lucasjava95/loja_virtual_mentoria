@@ -55,7 +55,7 @@ public class CategoriaProdutoController {
 		categoriaProdutoDto.setNomeDesc(categoriaSalva.getNomeDesc());
 		
 		
-		return new ResponseEntity<CategoriaProdutoDto>(categoriaProdutoDto, HttpStatus.OK);
+		return new ResponseEntity<CategoriaProdutoDto>(categoriaProdutoDto, HttpStatus.OK);   
 		
 		
 	}
