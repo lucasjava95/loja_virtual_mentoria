@@ -25,6 +25,24 @@ public class CategoriaProdutoController {
 	public ResponseEntity<CategoriaProdutoDto> salvarCategoriaProduto(@RequestBody CategoriaProduto categoriaProduto) throws ExceptionMentoriaJava{
 		
 		
+		if(categoriaProduto.getEmpresa() == null || (categoriaProduto.getEmpresa().getId() == null )) {
+			
+			
+			throw new ExceptionMentoriaJava("Empresa deve ser informada!");
+				
+		}
+		
+		
+		if(categoriaProdutoRepository.existeCategoria(categoriaProduto.getNomeDesc().toUpperCase())) {
+			
+			
+			throw new ExceptionMentoriaJava("Categoria já existe");
+			
+			
+		}
+		
+		
+
 		CategoriaProduto categoriaSalva = categoriaProdutoRepository.save(categoriaProduto);
 		
 		
