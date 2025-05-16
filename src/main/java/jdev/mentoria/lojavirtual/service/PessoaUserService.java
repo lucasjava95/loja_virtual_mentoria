@@ -46,6 +46,8 @@ public class PessoaUserService {
 			juridica.getEnderecos().get(i).setEmpresa(juridica);
 		}
 		
+		juridica.setEmpresa(juridica); //comentar após teste
+		
 		juridica = pesssoaRepository.save(juridica);
 		
 		Usuario usuarioPj = usuarioRepository.findUserByPessoa(juridica.getId(), juridica.getEmail());
