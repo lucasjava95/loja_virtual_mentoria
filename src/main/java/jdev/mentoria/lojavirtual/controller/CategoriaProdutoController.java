@@ -42,11 +42,21 @@ public class CategoriaProdutoController {
 	
 	@ResponseBody /*Poder dar um retorno da API*/
 	@DeleteMapping(value = "**/deleteCategoria") /*Mapeando a url para receber JSON*/
-	public ResponseEntity<?> deleteAcesso(@RequestBody CategoriaProduto categoriaProduto) { /*Recebe o JSON e converte pra Objeto*/
+	public ResponseEntity<?> deleteCategoria(@RequestBody CategoriaProduto categoriaProduto) throws ExceptionMentoriaJava { 
+		
+		
+		if(categoriaProdutoRepository.findById(categoriaProduto.getId()).isPresent() == false) {
+			
+		
+			return new ResponseEntity("Categoria de produto não existe",HttpStatus.OK);
+	
+		}
+		
 		
 		categoriaProdutoRepository.deleteById(categoriaProduto.getId());
 		
 		return new ResponseEntity("Categoria de produto removida",HttpStatus.OK);
+	
 	}
 	
 	
