@@ -26,8 +26,7 @@ import jdev.mentoria.lojavirtual.service.AcessoService;
 @RestController
 public class ProdutoController {
 	
-	@Autowired
-	private AcessoService acessoService;
+	
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
@@ -40,14 +39,14 @@ public class ProdutoController {
 		  List<Produto> produtos = produtoRepository.buscaProdutoNome(produto.getNome().toUpperCase());
 		  
 		  if (!produtos.isEmpty()) {
-			  throw new ExceptionMentoriaJava("Já existe Produto com a descrição: " + produto.getDescricao());
+			  throw new ExceptionMentoriaJava("Já existe Produto com o nome: " + produto.getNome());
 		  }
 		}
 		
 		
+		Produto produtoSalvo = produtoRepository.save(produto);
 		
-		
-		return new ResponseEntity<Produto>(produto, HttpStatus.OK); 
+		return new ResponseEntity<Produto>(produtoSalvo, HttpStatus.OK); 
 	
 	}
 	
@@ -55,29 +54,29 @@ public class ProdutoController {
 	
 	@ResponseBody /*Poder dar um retorno da API*/
 	@PostMapping(value = "**/deleteProduto") /*Mapeando a url para receber JSON*/
-	public ResponseEntity<?> deleteAcesso(@RequestBody Produto produto) { /*Recebe o JSON e converte pra Objeto*/
+	public ResponseEntity<String> deleteProduto(@RequestBody Produto produto) { /*Recebe o JSON e converte pra Objeto*/
 		
 		produtoRepository.deleteById(produto.getId());
 		
-		return new ResponseEntity("Produto Removido",HttpStatus.OK);
+		return new ResponseEntity<String>("Produto Removido",HttpStatus.OK);
 	}
 	
 
 	//@Secured({ "ROLE_GERENTE", "ROLE_ADMIN" })
 	@ResponseBody
 	@DeleteMapping(value = "**/deleteProdutoPorId/{id}")
-	public ResponseEntity<?> deleteAcessoPorId(@PathVariable("id") Long id) { 
+	public ResponseEntity<String> deleteProdutoPorId(@PathVariable("id") Long id) { 
 		
 		produtoRepository.deleteById(id);
 		
-		return new ResponseEntity("Produto Removido",HttpStatus.OK);
+		return new ResponseEntity<String>("Produto Removido",HttpStatus.OK);
 	}
 	
 	
 	
 	@ResponseBody
 	@GetMapping(value = "**/obterProduto/{id}")
-	public ResponseEntity<Produto> obterAcesso(@PathVariable("id") Long id) throws ExceptionMentoriaJava { 
+	public ResponseEntity<Produto> obterProduto(@PathVariable("id") Long id) throws ExceptionMentoriaJava { 
 		
 		Produto produto = produtoRepository.findById(id).orElse(null);
 		
@@ -90,14 +89,15 @@ public class ProdutoController {
 	
 	
 	
-	//@ResponseBody
-	//@GetMapping(value = "**/buscarPorDesc/{desc}")
-	//public ResponseEntity<List<Produto>> buscarPorDesc(@PathVariable("desc") String desc) { 
+	@ResponseBody
+	@GetMapping(value = "**/buscarProdNome/{desc}")
+	public ResponseEntity<List<Produto>> buscarProdNome(@PathVariable("desc") String desc) { 
 		
-	//	List<Acesso> acesso = acessoRepository.buscarAcessoDesc(desc.toUpperCase());
+		List<Produto> produto = produtoRepository.buscaProdutoNome(desc.toUpperCase());
 		
-	//	return new ResponseEntity<List<Produto>>(acesso,HttpStatus.OK);
-	//}
+		return new ResponseEntity<List<Produto>>(produto,HttpStatus.OK);
+	
+	}
 	
 	
 	
