@@ -2,6 +2,8 @@ package jdev.mentoria.lojavirtual.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jdev.mentoria.lojavirtual.ExceptionMentoriaJava;
-import jdev.mentoria.lojavirtual.model.Acesso;
 import jdev.mentoria.lojavirtual.model.Produto;
-import jdev.mentoria.lojavirtual.repository.AcessoRepository;
 import jdev.mentoria.lojavirtual.repository.ProdutoRepository;
-import jdev.mentoria.lojavirtual.service.AcessoService;
 
 //@CrossOrigin(origins = "https://www.jdevtreinamento.com.br")
 @Controller
@@ -33,7 +32,7 @@ public class ProdutoController {
 	
 	@ResponseBody /*Poder dar um retorno da API*/
 	@PostMapping(value = "**/salvarProduto") /*Mapeando a url para receber JSON*/
-	public ResponseEntity<Produto> salvarProduto(@RequestBody Produto produto) throws ExceptionMentoriaJava { /*Recebe o JSON e converte pra Objeto*/
+	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionMentoriaJava { /*Recebe o JSON e converte pra Objeto*/
 		
 		if (produto.getId() == null) {
 		  List<Produto> produtos = produtoRepository.buscaProdutoNome(produto.getNome().toUpperCase());
