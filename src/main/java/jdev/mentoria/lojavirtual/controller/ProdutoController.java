@@ -34,13 +34,37 @@ public class ProdutoController {
 	@PostMapping(value = "**/salvarProduto") /*Mapeando a url para receber JSON*/
 	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionMentoriaJava { /*Recebe o JSON e converte pra Objeto*/
 		
+	     
+		if(produto.getEmpresa() == null || produto.getEmpresa().getId() <= 0 ) {
+			
+			throw new ExceptionMentoriaJava("Empresa deve ser informada.");
+			
+		}
+		
+
 		if (produto.getId() == null) {
-		  List<Produto> produtos = produtoRepository.buscaProdutoNome(produto.getNome().toUpperCase());
+		  List<Produto> produtos = produtoRepository.buscaProdutoNome(produto.getNome().toUpperCase(), produto.getEmpresa().getId());
 		  
 		  if (!produtos.isEmpty()) {
 			  throw new ExceptionMentoriaJava("Já existe Produto com o nome: " + produto.getNome());
 		  }
 		}
+		
+		
+
+		
+		if(produto.getCategoriaProduto() == null || produto.getCategoriaProduto().getId() <= 0) {
+			
+			throw new ExceptionMentoriaJava("Categoria do produto deve ser informada.");
+		
+		}
+		
+		if(produto.getMarcaProduto() == null || produto.getMarcaProduto().getId() <= 0) {
+			
+			throw new ExceptionMentoriaJava("Marca do produto deve ser informada.");
+			
+		}
+		
 		
 		
 		Produto produtoSalvo = produtoRepository.save(produto);
