@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "produto")
@@ -32,6 +33,7 @@ public class Produto implements Serializable {
 	private String tipoUnidade;
 	
 	
+	@Size(min = 10, message = "Nome do produto deve ter no mínimo 10 letras")
     @NotNull(message = "Nome do produto deve ser informado.")
 	@Column(nullable = false)
 	private String nome;
@@ -90,6 +92,44 @@ public class Produto implements Serializable {
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
 	private PessoaJuridica empresa;
+	
+	
+	@NotNull(message = "Categoria deve ser informado.")
+	@ManyToOne(targetEntity = CategoriaProduto.class)
+	@JoinColumn(name = "categoria_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_id_fk"))
+	private CategoriaProduto categoriaProduto = new CategoriaProduto();
+	
+	
+	
+	
+	@NotNull(message = "Marca deve ser informado.")
+	@ManyToOne(targetEntity = MarcaProduto.class)
+	@JoinColumn(name = "marca_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_id_fk"))
+	private MarcaProduto marcaProduto = new MarcaProduto();
+	
+	
+	
+	public void setMarcaProduto(MarcaProduto marcaProduto) {
+		this.marcaProduto = marcaProduto;
+	}
+	
+	
+	
+	public MarcaProduto getMarcaProduto() {
+		return marcaProduto;
+	}
+	
+	
+	
+	public void setCategoriaProduto(CategoriaProduto categoriaProduto) {
+		this.categoriaProduto = categoriaProduto;
+	}
+	
+	
+	public CategoriaProduto getCategoriaProduto() {
+		return categoriaProduto;
+	}
+	
 
 	public PessoaJuridica getEmpresa() {
 		return empresa;
