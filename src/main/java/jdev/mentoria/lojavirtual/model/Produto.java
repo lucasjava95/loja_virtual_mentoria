@@ -111,7 +111,7 @@ public class Produto implements Serializable {
 	
 	@NotNull(message = "Nota Item do produto deve ser informado.")
 	@ManyToOne(targetEntity = NotaItemProduto.class)
-	@JoinColumn(name = "nota_item_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_item_produto_id_fk"))
+	@JoinColumn(name = "nota_item_produto_id", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_item_produto_id_fk"))
 	private NotaItemProduto notaItemProduto = new NotaItemProduto();
 	
 	
