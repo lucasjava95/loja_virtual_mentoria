@@ -48,7 +48,7 @@ public class MarcaProdutoController {
 	
 	
 	@ResponseBody /*Poder dar um retorno da API*/
-	@PostMapping(value = "**/deleteMarca") /*Mapeando a url para receber JSON*/
+	@DeleteMapping(value = "**/deleteMarca") /*Mapeando a url para receber JSON*/
 	public ResponseEntity<?> deleteMarca(@RequestBody MarcaProduto marcaProduto) { /*Recebe o JSON e converte pra Objeto*/
 		
 		marcaRepository.deleteById(marcaProduto.getId());

@@ -97,7 +97,7 @@ public class Produto implements Serializable {
 	@NotNull(message = "Categoria deve ser informado.")
 	@ManyToOne(targetEntity = CategoriaProduto.class)
 	@JoinColumn(name = "categoria_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_id_fk"))
-	private CategoriaProduto categoriaProduto = new CategoriaProduto();
+	private CategoriaProduto categoriaProduto;
 	
 	
 	
@@ -105,7 +105,7 @@ public class Produto implements Serializable {
 	@NotNull(message = "Marca deve ser informado.")
 	@ManyToOne(targetEntity = MarcaProduto.class)
 	@JoinColumn(name = "marca_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_id_fk"))
-	private MarcaProduto marcaProduto = new MarcaProduto();
+	private MarcaProduto marcaProduto;
 	
 	
 	/*
