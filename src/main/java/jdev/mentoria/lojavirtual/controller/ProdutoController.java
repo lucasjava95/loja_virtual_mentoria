@@ -51,7 +51,7 @@ public class ProdutoController {
 		}
 		
 		
-
+        
 		
 		if(produto.getCategoriaProduto() == null || produto.getCategoriaProduto().getId() <= 0) {
 			
