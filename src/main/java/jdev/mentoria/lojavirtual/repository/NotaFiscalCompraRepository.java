@@ -3,6 +3,7 @@ package jdev.mentoria.lojavirtual.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,12 @@ public interface NotaFiscalCompraRepository extends JpaRepository<NotaFiscalComp
    
    @Query("select n from NotaFiscalCompra n where n.empresa.id = ?1")
    List<NotaFiscalCompra> buscaNotaPorEmpresa(Long idEmpresa);
+   
+   
+   @Transactional
+   @Modifying(flushAutomatically = true, clearAutomatically = true) //clear para limpar o cache, pra não ficar nada em cache.
+   @Query(nativeQuery = true, value = "delete from nota_item_produto where nota_fiscal_compra_id = ?1")
+   void deleteItemNotaFiscalCompra(Long idNotaFiscalCompra);
 
 
 }
