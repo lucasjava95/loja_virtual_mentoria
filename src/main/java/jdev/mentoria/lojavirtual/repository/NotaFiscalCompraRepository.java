@@ -34,9 +34,9 @@ public interface NotaFiscalCompraRepository extends JpaRepository<NotaFiscalComp
    @Query(nativeQuery = true, value = "delete from nota_item_produto where nota_fiscal_compra_id = ?1")
    void deleteItemNotaFiscalCompra(Long idNotaFiscalCompra);
    
-   
+   /*
    @Query(nativeQuery = true, value = "select count(1) > 0 from nota_fiscal_compra where descricao_obs like %?1%")
    boolean existeNotaComDescricao(String desc);
 
-
+  */
 }

@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -38,7 +39,7 @@ public class NotaFiscalCompra implements Serializable {
 	@Column(nullable = false)
 	private String numeroNota;
 	
-	
+	@NotEmpty(message = "Informe série da nota")
 	@NotNull(message = "Informe série da nota.")
 	@Column(nullable = false)
 	private String serieNota;
