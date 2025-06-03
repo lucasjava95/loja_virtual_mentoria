@@ -109,13 +109,13 @@ public class NotaFiscalCompraController {
     
     @ResponseBody
 	@DeleteMapping(value = "**/deleteNotaCompraPorId/{id}")
-	public ResponseEntity<?> deleteNotaCompraPorId(@PathVariable("id") Long id) { 
+	public ResponseEntity<String> deleteNotaCompraPorId(@PathVariable("id") Long id) { 
 		
 		notaFiscalCompraRepository.deleteItemNotaFiscalCompra(id); //deleta os filhos (nota_item_produto)
 		
 		notaFiscalCompraRepository.deleteById(id); //deleta o pai (NotaFiscalCompra)
 		
-		return new ResponseEntity("Nota Fiscal de Compra Removida",HttpStatus.OK);
+		return new ResponseEntity<String>("Nota Fiscal de Compra Removida",HttpStatus.OK);
 	
     
     }
