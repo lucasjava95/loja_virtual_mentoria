@@ -1,7 +1,9 @@
 package jdev.mentoria.lojavirtual.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jdev.mentoria.lojavirtual.ExceptionMentoriaJava;
 import jdev.mentoria.lojavirtual.model.Produto;
 import jdev.mentoria.lojavirtual.repository.ProdutoRepository;
+import jdev.mentoria.lojavirtual.service.ServiceSendEmail;
 
 //@CrossOrigin(origins = "https://www.jdevtreinamento.com.br")
 @Controller
@@ -30,14 +33,36 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
+	
+	@Autowired
+	private ServiceSendEmail serviceSendEmail;
+	
+	
 	@ResponseBody /*Poder dar um retorno da API*/
 	@PostMapping(value = "**/salvarProduto") /*Mapeando a url para receber JSON*/
-	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionMentoriaJava { /*Recebe o JSON e converte pra Objeto*/
+	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionMentoriaJava, UnsupportedEncodingException, MessagingException { /*Recebe o JSON e converte pra Objeto*/
+		
+		
+		if(produto.getTipoUnidade() == null || produto.getTipoUnidade().trim().isEmpty()) {
+			
+			throw new ExceptionMentoriaJava("Tipo de unidade deve ser informada.");
+			
+			
+		}
+		
+		if(produto.getNome().length() < 10) {
+			
+			throw new ExceptionMentoriaJava("Nome do produto deve ter pelo menos 10 letras.");
+			
+			
+		}
+		
+		
 		
 	     
 		if(produto.getEmpresa() == null || produto.getEmpresa().getId() <= 0 ) {
 			
-			throw new ExceptionMentoriaJava("Empresa deve ser informada.");
+			throw new ExceptionMentoriaJava("Empresa responsável deve ser informada.");
 			
 		}
 		
@@ -65,9 +90,38 @@ public class ProdutoController {
 			
 		}
 		
+		if(produto.getQtdEstoque() < 1) {
+			
+			throw new ExceptionMentoriaJava("Produto deve ter no mínimo uma unidade.");
+			
+		}
 		
-		
+			
 		Produto produtoSalvo = produtoRepository.save(produto);
+		
+		if(produto.getAlertaQtdeEstoque() && produto.getQtdEstoque() <= 1) {
+			
+			
+			StringBuilder html = new StringBuilder();
+			
+			html.append("<h2>")
+			.append("Produto: " + produto.getNome())
+			.append(" com estoque baixo: " + produto.getQtdEstoque());
+			
+			html.append("<p> ID Produto: ").append(produto.getId()).append("</p>");
+			
+			
+			if(produto.getEmpresa().getEmail() != null) {
+				
+				serviceSendEmail.enviarEmailHtml("Estoque baixo", html.toString(), produto.getEmpresa().getEmail());
+				
+			
+			
+			}
+				
+		}
+		
+		
 		
 		return new ResponseEntity<Produto>(produtoSalvo, HttpStatus.OK); 
 	
