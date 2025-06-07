@@ -1,10 +1,14 @@
 package jdev.mentoria.lojavirtual.controller;
 
-import java.io.UnsupportedEncodingException;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +44,7 @@ public class ProdutoController {
 	
 	@ResponseBody /*Poder dar um retorno da API*/
 	@PostMapping(value = "**/salvarProduto") /*Mapeando a url para receber JSON*/
-	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionMentoriaJava, UnsupportedEncodingException, MessagingException { /*Recebe o JSON e converte pra Objeto*/
+	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionMentoriaJava, MessagingException, IOException { /*Recebe o JSON e converte pra Objeto*/
 		
 		
 		if(produto.getTipoUnidade() == null || produto.getTipoUnidade().trim().isEmpty()) {
@@ -95,6 +99,78 @@ public class ProdutoController {
 			throw new ExceptionMentoriaJava("Produto deve ter no mínimo uma unidade.");
 			
 		}
+		
+		
+		if(produto.getImagens() == null || produto.getImagens().isEmpty() || produto.getImagens().size() == 0 ) {
+			
+			
+			throw new ExceptionMentoriaJava("Deve ser informado imagens para o produto.");
+				
+		}
+		
+		
+		if(produto.getImagens().size() < 3) {
+			
+			
+			throw new ExceptionMentoriaJava("Produto deve ter no mínimo 3 imagens.");
+			
+		}
+		
+		
+		if(produto.getImagens().size() > 6) {
+			
+			
+			throw new ExceptionMentoriaJava("Produto deve ter no máximo 6 imagens.");
+			
+		}
+		
+		
+		if(produto.getId() == null) {
+			
+			
+			for(int x = 0; x < produto.getImagens().size(); x++) {
+				
+				produto.getImagens().get(x).setProduto(produto);
+				
+				produto.getImagens().get(x).setEmpresa(produto.getEmpresa());
+				
+				
+				String base64Image = "";
+				
+			 if(produto.getImagens().get(x).getImagemOriginal().contains("data:image")) {
+					
+					
+			base64Image = produto.getImagens().get(x).getImagemOriginal().split(",")[1]; /*Pega o conteudo pós virgula -> data:image/jpeg;base64, /9j/4AAQSkZJRgAB*/
+								
+			}else {
+				
+				base64Image = produto.getImagens().get(x).getImagemOriginal(); /*Pega a imagem original direto, sem precisar quebrar em um array (condição acima)*/
+				
+			}
+			 
+			 
+		    byte[] imagemBytes = DatatypeConverter.parseBase64Binary(base64Image);
+		    
+		    
+		    BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemBytes));
+		    
+		    
+		    
+		    if(bufferedImage != null) {
+		    	
+		    	
+		    //	int type = bufferedImage.getType() == 0 ? BufferedImage.ty
+		    	
+		    	
+		    	
+		    }
+				
+		
+			}
+				
+		}
+		
+		
 		
 			
 		Produto produtoSalvo = produtoRepository.save(produto);
