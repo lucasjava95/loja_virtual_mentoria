@@ -1,7 +1,9 @@
 package jdev.mentoria.lojavirtual.controller;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -159,7 +161,43 @@ public class ProdutoController {
 		    if(bufferedImage != null) {
 		    	
 		    	
-		    //	int type = bufferedImage.getType() == 0 ? BufferedImage.ty
+		    	int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+		    	
+		    	int largura = Integer.parseInt("800");
+		    	
+		    	int altura = Integer.parseInt("600");
+		    	
+		    	
+		    	BufferedImage resizedImagem = new BufferedImage(largura, altura, type);
+		    	
+		    	Graphics2D g = resizedImagem.createGraphics();
+		    	
+		    	g.drawImage(bufferedImage, 0, 0, largura, altura, null);
+		    	
+		    	g.dispose(); //gera a imagem redimensionada (800x600)
+		    	
+		    	
+		    	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		    	
+		    	ImageIO.write(resizedImagem, "png", baos);
+		    	
+		    	
+		    	String miniImgBase64 = "data:image/png;base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
+		    	
+		    	produto.getImagens().get(x).setImagemMiniatura(miniImgBase64);
+		    	
+		    	
+		    	/*4 linhas seguintes para descarregar os buffers de memoria*/
+		    	
+		    	bufferedImage.flush();
+		    	
+		    	resizedImagem.flush();
+		    	
+		    	baos.flush();
+		    	
+		    	baos.close();
+		    	
+		    	
 		    	
 		    	
 		    	
