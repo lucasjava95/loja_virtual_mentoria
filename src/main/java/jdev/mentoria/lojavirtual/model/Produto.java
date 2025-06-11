@@ -82,9 +82,9 @@ public class Produto implements Serializable {
 	
 	
 	@Column(nullable = false)
-	private Integer QtdEstoque = 0;
+	private Integer qtdEstoque = 0;
 
-	private Integer QtdeAlertaEstoque = 0;
+	private Integer qtdeAlertaEstoque = 0;
 
 	private String linkYoutube;
 
@@ -102,7 +102,7 @@ public class Produto implements Serializable {
 	@NotNull(message = "Categoria deve ser informado.")
 	@ManyToOne(targetEntity = CategoriaProduto.class)
 	@JoinColumn(name = "categoria_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_id_fk"))
-	private CategoriaProduto categoriaProduto;
+	private CategoriaProduto categoriaProduto = new CategoriaProduto();
 	
 	
 	
@@ -110,7 +110,7 @@ public class Produto implements Serializable {
 	@NotNull(message = "Marca deve ser informado.")
 	@ManyToOne(targetEntity = MarcaProduto.class)
 	@JoinColumn(name = "marca_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_id_fk"))
-	private MarcaProduto marcaProduto;
+	private MarcaProduto marcaProduto = new MarcaProduto();
 	
 																					  /*apenas carrega as imagens se for solicitado.*/
 	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -242,21 +242,32 @@ public class Produto implements Serializable {
 		this.valorVenda = valorVenda;
 	}
 
+	
+	
+
 	public Integer getQtdEstoque() {
-		return QtdEstoque;
+		return qtdEstoque;
 	}
+
+
 
 	public void setQtdEstoque(Integer qtdEstoque) {
-		QtdEstoque = qtdEstoque;
+		this.qtdEstoque = qtdEstoque;
 	}
+
+
 
 	public Integer getQtdeAlertaEstoque() {
-		return QtdeAlertaEstoque;
+		return qtdeAlertaEstoque;
 	}
 
+
+
 	public void setQtdeAlertaEstoque(Integer qtdeAlertaEstoque) {
-		QtdeAlertaEstoque = qtdeAlertaEstoque;
+		this.qtdeAlertaEstoque = qtdeAlertaEstoque;
 	}
+
+
 
 	public String getLinkYoutube() {
 		return linkYoutube;
