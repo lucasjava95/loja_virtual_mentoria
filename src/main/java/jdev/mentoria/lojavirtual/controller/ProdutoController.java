@@ -82,13 +82,6 @@ public class ProdutoController {
 		}
 		
 		
-        
-		/*
-		if(produto.getCategoriaProduto() == null || produto.getCategoriaProduto().getId() <= 0) {
-			
-			throw new ExceptionMentoriaJava("Categoria do produto deve ser informada.");
-		
-		}*/
 		
 		if(produto.getMarcaProduto() == null || produto.getMarcaProduto().getId() <= 0) {
 			
